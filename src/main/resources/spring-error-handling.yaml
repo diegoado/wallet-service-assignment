@@ -1,0 +1,19 @@
+error:
+  handling:
+    add-path-to-error: false
+    http-status-in-json-response: true
+    search-super-class-hierarchy: true
+    full-stacktrace-http-statuses: [ 5XX ]
+    json-field-names:
+      fieldErrors: field_errors
+      globalErrors: global_errors
+      parameterErrors: parameter_errors
+    http-statuses:
+      com.assignment.wallet.domain.exception:
+        IdempotentRequestException: bad_request
+        InsufficientFundsException: bad_request
+        SameWalletTransferException: bad_request
+        WalletAlreadyExistsException: bad_request
+        WalletNotFoundException: not_found
+      com.assignment.wallet.infrastructure.lock.exception:
+        LockAcquisitionException: conflict

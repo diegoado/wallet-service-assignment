@@ -1,0 +1,15 @@
+cucumber:
+  plugin: pretty,junit:build/reports/cucumber/report.xml,html:build/reports/cucumber/report.html
+  glue: com.assignment.wallet
+  junit-platform:
+    naming-strategy: long
+  publish:
+    quiet: true
+  execution:
+    parallel:
+      enabled: true
+    config:
+      strategy: dynamic
+    exclusive-resources:
+      isolated:
+        read-write: org.junit.platform.engine.support.hierarchical.ExclusiveResource.GLOBAL_KEY

@@ -1,0 +1,64 @@
+spring:
+  config:
+    import: classpath:spring-error-handling.yaml
+  datasource:
+    url: jdbc:postgresql://${embedded.postgresql.host}:${embedded.postgresql.port}/${embedded.postgresql.schema}
+    username: ${embedded.postgresql.user}
+    password: ${embedded.postgresql.password}
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      schema: public
+      connection-timeout: 30000
+      validation-timeout: 5000
+      max-lifetime: 1800000
+      leak-detection-threshold: 60000
+      connection-test-query: select 1
+      minimum-idle: 2
+      maximum-pool-size: 10
+      pool-name: springHikariPool
+      auto-commit: false
+  data:
+    redis:
+      host: ${embedded.redis.host}
+      port: ${embedded.redis.port}
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          fetch_size: 200
+          batch_size: 50
+          batch_versioned_data: true
+          lob:
+            non_contextual_creation: true
+        connection:
+          provider_disables_autocommit: true
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: public
+        default_batch_fetch_size: 20
+        order_inserts: true
+        order_updates: true
+        generate_statistics: true
+        use_sql_comments: true
+        current_session_context_class: thread
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 500
+            readTimeout: 2000
+            loggerLevel: full
+            exception-propagation-policy: unwrap
+
+management:
+  metrics:
+    enable:
+      all: false

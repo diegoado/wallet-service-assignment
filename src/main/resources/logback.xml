@@ -1,0 +1,15 @@
+<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%black(%d{ISO8601}) [%yellow(%X{traceId}) %cyan(%X{spanId})] L=%highlight(%.-5level) T=%magenta(%t)
+        C=%yellow(%C{0}) M=%cyan(%M) %msg %kvp{} %ex%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <logger name="org.hibernate.engine.internal.StatisticalLoggingSessionEventListener" level="OFF"/>
+
+  <root level="INFO">
+    <appender-ref ref="STDOUT"/>
+  </root>
+</configuration>

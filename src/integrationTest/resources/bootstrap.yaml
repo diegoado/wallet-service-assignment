@@ -1,0 +1,8 @@
+embedded:
+  postgresql:
+    enabled: true
+    dockerImage: postgres:16-alpine
+  redis:
+    enabled: true
+    dockerImage: redis:8.6-alpine
+    requirepass: false

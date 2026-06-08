@@ -1,0 +1,62 @@
+<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="net.logstash.logback.layout.LoggingEventCompositeJsonLayout">
+      <lineSeparator>SYSTEM</lineSeparator>
+      <providers>
+        <timestamp>
+          <pattern>[ISO_LOCAL_DATE_TIME]</pattern>
+        </timestamp>
+        <mdc/>
+        <arguments>
+          <includeNonStructuredArguments>true</includeNonStructuredArguments>
+        </arguments>
+        <keyValuePairs>
+          <fieldName>keyPairs</fieldName>
+        </keyValuePairs>
+        <logstashMarkers/>
+        <pattern>
+          <pattern>
+            {
+              "level": "%.-5level",
+              "thread": "%t",
+              "class": "%C{0}",
+              "method": "%M",
+              "line": "%L",
+              "message": "%msg"
+            }
+          </pattern>
+          <ommitEmptyFields>true</ommitEmptyFields>
+        </pattern>
+        <throwableClassName>
+          <fieldName>exception</fieldName>
+        </throwableClassName>
+        <throwableMessage>
+          <fieldName>exceptionMessage</fieldName>
+        </throwableMessage>
+        <stackTrace>
+          <fieldName>stacktrace</fieldName>
+          <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+            <maxDepthPerThrowable>10</maxDepthPerThrowable>
+            <maxLength>2048</maxLength>
+            <shortenedClassNameLength>20</shortenedClassNameLength>
+            <exclude>sum\.reflect\..*\.invoke.*</exclude>
+            <exclude>net\.sf\.cglib\.proxy\.MethodProxy\.invoke</exclude>
+            <rootCauseFirst>true</rootCauseFirst>
+          </throwableConverter>
+        </stackTrace>
+        <throwableRootCauseClassName>
+          <fieldName>rootCause</fieldName>
+        </throwableRootCauseClassName>
+        <throwableRootCauseMessage>
+          <fieldName>rootCauseMessage</fieldName>
+        </throwableRootCauseMessage>
+      </providers>
+    </layout>
+  </appender>
+
+  <logger name="org.hibernate.engine.internal.StatisticalLoggingSessionEventListener" level="OFF"/>
+
+  <root level="INFO">
+    <appender-ref ref="STDOUT"/>
+  </root>
+</configuration>
